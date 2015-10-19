@@ -20,6 +20,10 @@ LGra='\e[0;37m';
 
 # end colors
 
+# nvm
+. ~/.nvm/nvm.sh
+nvm use stable
+
 # =========
 # aliases
 # =========
