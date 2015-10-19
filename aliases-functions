@@ -1,0 +1,217 @@
+# =========
+# colors, replace with chalk: npm install -g --save chalk
+# =========
+
+# colors: echo -e "${Blu}blue ${Red}red ${RCol}etc...."
+
+RCol='\e[0m';    # Text Reset
+
+# Regular           Bold                Underline           High Intensity      BoldHigh Intens     Background          High Intensity Backgrounds
+Bla='\e[0;30m';     BBla='\e[1;30m';    UBla='\e[4;30m';    IBla='\e[0;90m';    BIBla='\e[1;90m';   On_Bla='\e[40m';    On_IBla='\e[0;100m';
+Red='\e[0;31m';     BRed='\e[1;31m';    URed='\e[4;31m';    IRed='\e[0;91m';    BIRed='\e[1;91m';   On_Red='\e[41m';    On_IRed='\e[0;101m';
+Gre='\e[0;32m';     BGre='\e[1;32m';    UGre='\e[4;32m';    IGre='\e[0;92m';    BIGre='\e[1;92m';   On_Gre='\e[42m';    On_IGre='\e[0;102m';
+Yel='\e[0;33m';     BYel='\e[1;33m';    UYel='\e[4;33m';    IYel='\e[0;93m';    BIYel='\e[1;93m';   On_Yel='\e[43m';    On_IYel='\e[0;103m';
+Blu='\e[0;34m';     BBlu='\e[1;34m';    UBlu='\e[4;34m';    IBlu='\e[0;94m';    BIBlu='\e[1;94m';   On_Blu='\e[44m';    On_IBlu='\e[0;104m';
+Pur='\e[0;35m';     BPur='\e[1;35m';    UPur='\e[4;35m';    IPur='\e[0;95m';    BIPur='\e[1;95m';   On_Pur='\e[45m';    On_IPur='\e[0;105m';
+Cya='\e[0;36m';     BCya='\e[1;36m';    UCya='\e[4;36m';    ICya='\e[0;96m';    BICya='\e[1;96m';   On_Cya='\e[46m';    On_ICya='\e[0;106m';
+Whi='\e[0;37m';     BWhi='\e[1;37m';    UWhi='\e[4;37m';    IWhi='\e[0;97m';    BIWhi='\e[1;97m';   On_Whi='\e[47m';    On_IWhi='\e[0;107m';
+DGra='\e[1;30m';
+LGra='\e[0;37m';
+
+# end colors
+
+# =========
+# aliases
+# =========
+
+alias clr="clear"
+alias ..="cd .."
+alias ~="cd ~"
+
+alias s='open -a "Sublime Text"'
+
+alias fnm="find . -type f -name "
+alias agq="ag -Q "
+alias frep='grep --color=auto -RnisI'
+function stringstats() {
+	echo "_______________________________________________________";
+	num_files=$(ag -c "$1" | wc -l);
+	num_instances=$(ag "$1" | wc -l)
+	echo -e "Number of files with instances: ${BRed}$num_files${RCol}";
+	echo -e "Total instances from all files: ${BRed}$num_instances${RCol}";
+	echo "-------------------------------------------------------";
+	ag -c "$1";
+	echo "-------------------------------------------------------";
+	# ag "$1";
+}
+
+function rpl() {
+	ag -l "$1" | xargs sed -i '' 's|'"$1"'|'"$2"'|g';
+}
+function rplq() {
+	ag -l -Q "$1" | xargs sed -i '' 's|'"$1"'|'"$2"'|g';
+}
+
+alias tree='tree -C'
+# sudo easy_install Pygments
+alias pyg="pygmentize -g"
+alias c='pygmentize -O style=monokai -f console256 -g'
+
+
+# Create a new directory and enter it
+function md() {
+	mkdir -p "$@" && cd "$@"
+}
+# create a file and open in sublime
+function tos() {
+	touch "$1" && s "$1"
+}
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+}
+function cleanold() {
+	mkdir _old;
+	mv * _old;
+}
+# write a function that moves everything in current dir to parent dir and deletes old current dir
+function folderup() {
+	# echo 'Deleted directory:' $(pwd);
+	olddir=$(pwd);
+	mv * ../;
+	cd ..;
+	rmdir $olddir;
+}
+
+alias oct="perl -e 'printf \"%o\n\", (stat shift)[2]&07777' "
+alias fs="stat -f \"%z bytes\""
+
+
+alias proc="lsof | ag "
+
+alias flush="dscacheutil -flushcache"
+
+alias resize="sips -Z" #usage: resize (new-width) imagename.png
+
+# alias rm-ds-store='find . "-name" ".DS_Store" -exec rm {} \;'
+# # Recursively delete `.DS_Store` files
+alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
+# Empty the Trash on all mounted volumes and the main HDD
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
+
+# ==== dotfiles ==== #
+alias ea='cd ~/Documents/_setup && s .'
+alias ua="cd ~/Documents/_setups && g add . && g commit && g push && fresh"
+alias fresh='source $HOME/.secrets && cls'
+
+
+# rake / octopress
+alias rgen='rake generate'
+alias rprev='rake preview'
+alias rupd='rake update'
+
+
+# python / julia
+alias julia="exec '/Applications/Julia-0.2.1.app/Contents/Resources/julia/bin/julia'"
+alias pip="ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip"
+
+
+# ==== network ==== #
+
+# alias onport="sudo lsof -i "
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+# Enhanced WHOIS lookups
+alias whois="whois -h whois-servers.net"
+
+# View HTTP traffic
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+alias onport='lsof -n -i4TCP:8080 | grep LISTEN'
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "$method"="lwp-request -m '$method'"
+done
+
+function server() {
+	local port="${1:-8000}"
+	open "http://localhost:${port}/"
+	# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
+	# And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
+}
+
+# ==== homebrew ==== #
+alias brewfix='sudo chown -R $USER /usr/local /Library/Caches/Homebrew/'
+alias brewup='brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup'
+
+
+# ==== NPM ==== #
+alias nvm-update='nvm install stable && nvm use stable'
+alias npmg='npm list -g --depth=0'
+alias fix_node_permissions='sudo chown -R `whoami` /usr/local && sudo chown -R $(whoami) ~/.npm && sudo chown -R `whoami` /usr/local/lib/node_modules'
+# nvm ls-remote
+# fix npm errors: sudo chown -R $(whoami) $HOME/.npm
+# sudo chown -R $(whoami) /Library/Ruby/
+
+
+# ==== git ==== #
+
+# alias gat='git status'
+# alias giff='git diff --color=auto'
+alias gitoops="git fetch --all && git reset --hard origin/master"
+# Undo a `git push`
+# alias undopush="git push -f origin HEAD^:master"
+
+
+
+# =========
+# functions 
+# =========
+
+function zipcode() {
+	LINE=$(curl -Gs --data-urlencode "address=$@" https://maps.googleapis.com/maps/api/geocode/json | ag 'formatted_address' | tail -c -13 | head -c 5);
+	# $LINE | pbcopy;
+	echo $LINE | pbcopy;
+	echo "$LINE: copied to clipboard";
+}
+
+# ==== my project functions ==== #
+
+# npm install --global generator-angular
+function new_angular() {
+	md "$1";
+	yo angular;
+	git init && ga && g commit -m 'initial commit';
+	grunt serve;
+}
+
+# npm install --global generator-gulp-webapp
+function new_webapp() {
+	md "$1";
+	yo gulp-webapp;
+	git init && ga && g commit -m 'initial commit';
+	gulp serve;
+}
+
+
+# ==== other people unused ==== #
+
+# Copy w/ progress
+cp_p () {
+  rsync -WavP --human-readable --progress $1 $2
+}
+
+
+
+
+# show members of groups on OSX
+members () { dscl . -list /Users | while read user; do printf "$user "; dsmemberutil checkmembership -U "$user" -G "$*"; done | grep "is a member" | cut -d " " -f 1; };
+
+
