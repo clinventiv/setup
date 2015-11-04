@@ -20,9 +20,24 @@ LGra='\e[0;37m';
 
 # end colors
 
+# git config
+git config --global user.name "chris.lyons" # Set your name
+git config --global user.email "christopher.lyons@inventivhealth.com" # Set an email
+
+
 # nvm
 . ~/.nvm/nvm.sh
+export NVM_DIR=$HOME/.nvm
 nvm use stable
+# sudo ln -s $(which node) /usr/bin/node
+
+
+# java 
+# export JAVA_HOME=/usr
+
+# python
+PYTHONPATH=$PYTHONPATH:~/pywikibot/
+export PYTHONPATH
 
 # =========
 # aliases
@@ -32,7 +47,7 @@ alias clr="clear"
 alias ..="cd .."
 alias ~="cd ~"
 
-alias s='open -a "Sublime Text"'
+alias s='open -a "Sublime Text 2"'
 
 alias fnm="find . -type f -name "
 alias agq="ag -Q "
