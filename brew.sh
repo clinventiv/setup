@@ -9,20 +9,23 @@ rake update
 # get cask
 brew tap caskroom/cask
 brew install brew-cask
-brew install maven dos2unix
+brew install maven dos2unix htop
 
 # main tools | more at http://caskroom.io/search
-brew cask install iterm2 sublime-text spectacle mamp java
+brew cask install iterm2 sublime-text spectacle mamp java diffmerge
 
 # sass
-gem install sass
+sudo gem install sass
+sudo gem install bundler
 
 # nvm, node, npm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
 . ~/.nvm/nvm.sh
 export NVM_DIR=$HOME/.nvm
-nvm install stable
-nvm use stable
+nvm install v0.12.7
+nvm use v0.12.7
+# nvm install stable
+# nvm use stable
 
 # npm packages
 npm install -g yo bower grunt grunt-cli gulp jhipster-uml
@@ -37,6 +40,11 @@ sudo pip install jupyter # jupyter notebook
 sudo pip install pattern
 sudo pip install scrapy
 sudo pip install wikipedia
+
+# php stuff
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+composer global require "laravel/installer=~1.1"
 
 
 # setup aliases
@@ -68,3 +76,4 @@ echo 'source ~/Documents/_setup/aliases-functions' >> .secrets
 # advanced new file
 # angular
 # view in browser
+# cdn js

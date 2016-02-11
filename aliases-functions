@@ -28,7 +28,8 @@ git config --global user.email "christopher.lyons@inventivhealth.com" # Set an e
 # nvm
 . ~/.nvm/nvm.sh
 export NVM_DIR=$HOME/.nvm
-nvm use stable
+nvm use v0.12.7
+# nvm use stable
 # sudo ln -s $(which node) /usr/bin/node
 
 
@@ -38,6 +39,12 @@ nvm use stable
 # python
 PYTHONPATH=$PYTHONPATH:~/pywikibot/
 export PYTHONPATH
+
+# php
+PATH=~/.composer/vendor/bin:$PATH
+PATH=/Applications/MAMP/bin/php/php5.6.10/bin:$PATH
+export PATH
+
 
 # =========
 # aliases
@@ -76,7 +83,8 @@ alias tree='tree -C'
 alias pyg="pygmentize -g"
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-
+# remove hidden files OSX
+alias rmhidden='rm -rf * .*'
 # Create a new directory and enter it
 function md() {
 	mkdir -p "$@" && cd "$@"
